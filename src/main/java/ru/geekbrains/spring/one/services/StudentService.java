@@ -48,5 +48,4 @@ public class StudentService {
     public void decrementScoreById(Long id){
         studentRepository.decrementScoreById(id);
     }
-
 }

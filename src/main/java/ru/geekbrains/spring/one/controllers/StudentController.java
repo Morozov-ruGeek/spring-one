@@ -68,5 +68,4 @@ public class StudentController {
         studentService.decrementScoreById(id);
         return "/";
     }
-
 }
