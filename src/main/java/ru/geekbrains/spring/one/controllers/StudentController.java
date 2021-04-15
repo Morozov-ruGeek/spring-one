@@ -66,6 +66,7 @@ public class StudentController {
     @PostMapping
     public String decrementScoreById(@PathVariable Long id){
         studentService.decrementScoreById(id);
-        return "index";
+        return "/";
     }
+
 }

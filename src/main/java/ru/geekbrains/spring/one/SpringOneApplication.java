@@ -12,7 +12,6 @@ public class SpringOneApplication {
 	// 2. Добавьте на странице со списком студентов по бокам балла две кнопки "-" и "+",
 	// при нажатии на которые доолжен происходить декремент и инкремент балла студента.
 	// Балл не может быть меньше 0 и больше 100
-
 	public static void main(String[] args) {
 		SpringApplication.run(SpringOneApplication.class, args);
 	}

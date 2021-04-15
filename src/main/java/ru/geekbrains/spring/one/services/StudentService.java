@@ -41,7 +41,6 @@ public class StudentService {
      }
      */
 
-    
     public void incrementScoreById(Long id){
         studentRepository.incrementScoreById(id);
     }
@@ -50,7 +49,4 @@ public class StudentService {
         studentRepository.decrementScoreById(id);
     }
 
-    public double getAverageScore() {
-        return studentRepository.findAll().stream().mapToInt(Student::getScore).average().getAsDouble();
-    }
 }
