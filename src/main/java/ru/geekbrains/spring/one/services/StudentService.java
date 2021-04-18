@@ -33,24 +33,7 @@ public class StudentService {
         studentRepository.deleteById(id);
     }
 
-    /*
-     Альтернативный вариант кода, который я не додумался, как реализовать полностью
-
-     public void alternativeIncrementScoreById(Long id){
-        studentRepository.findOneById(id).get().setScore();
-     }
-     */
-
-    
-    public void incrementScoreById(Long id){
-        studentRepository.incrementScoreById(id);
-    }
-
-    public void decrementScoreById(Long id){
-        studentRepository.decrementScoreById(id);
-    }
-
-    public double getAverageScore() {
-        return studentRepository.findAll().stream().mapToInt(Student::getScore).average().getAsDouble();
+    public void changeScoreById(Long id, int changeNumber){
+        studentRepository.findOneById(id).get().changeScore(changeNumber);
     }
 }

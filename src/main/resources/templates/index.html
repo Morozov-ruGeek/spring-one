@@ -17,7 +17,9 @@
             <tr>
                 <th>ID</th>
                 <th>Имя</th>
+                <th></th>
                 <th>Балл</th>
+                <th></th>
                 <th>Действия</th>
             </tr>
             </thead>
@@ -25,7 +27,13 @@
             <tr th:each="s : ${students}">
                 <td th:text="${s.id}"/>
                 <td th:text="${s.name}"/>
+                <td>
+                    <a th:href="@{'/students/decrement/' + ${s.id}}" class="btn btn-light">-</a>&nbsp;
+                </td>
                 <td th:text="${s.score}"/>
+                <td>
+                    <a th:href="@{'/students/score/increment/' + ${s.id}}" class="btn btn-light">+</a>&nbsp;
+                </td>
                 <td>
                     <a class="btn btn-danger" th:href="@{'/students/delete/' + ${s.id}}">Удалить запись</a>
                 </td>

@@ -43,20 +43,4 @@ public class StudentRepository {
     public void deleteById(Long id) {
         students.removeIf(s -> s.getId().equals(id));
     }
-
-    public void incrementScoreById(Long id){
-        for (Student s : students) {
-            if (s.getId().equals(id)) {
-                 s.setScore(s.getScore()+1);
-            }
-        }
-    }
-
-    public void decrementScoreById(Long id){
-        for (Student s : students) {
-            if (s.getId().equals(id)) {
-                s.setScore(s.getScore()-1);
-            }
-        }
-    }
 }
