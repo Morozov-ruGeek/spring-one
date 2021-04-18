@@ -57,15 +57,17 @@ public class StudentController {
         return "redirect:/";
     }
 
-    @PostMapping
+    @GetMapping("/students/score/increment/{id}")
     public String incrementScoreById(@PathVariable Long id){
-        studentService.incrementScoreById(id);
-        return "index";
+        int incrementNumber = (+1);
+        studentService.changeScoreById(id, incrementNumber);
+        return "redirect:/";
     }
 
-    @PostMapping
+    @GetMapping("/students/decrement/{id}")
     public String decrementScoreById(@PathVariable Long id){
-        studentService.decrementScoreById(id);
-        return "/";
+        int decrementNumber = (-1);
+        studentService.changeScoreById(id, decrementNumber);
+        return "redirect:/";
     }
 }
