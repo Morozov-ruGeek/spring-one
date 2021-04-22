@@ -33,7 +33,7 @@ public class StudentController {
 
     @PostMapping("/students/finder")
     public String showStudentInfo(@RequestParam Long id, Model model) {
-        Optional<Student> student = studentService.findOneById(id);
+        Optional<Student> student = studentService.findOneByIdFroData(id);
         if (student.isPresent()) {
             model.addAttribute("student", student.get());
         }
@@ -59,15 +59,13 @@ public class StudentController {
 
     @GetMapping("/students/score/increment/{id}")
     public String incrementScoreById(@PathVariable Long id){
-        int incrementNumber = (+1);
-        studentService.changeScoreById(id, incrementNumber);
+        studentService.changeScoreById(id, 1);
         return "redirect:/";
     }
 
     @GetMapping("/students/decrement/{id}")
     public String decrementScoreById(@PathVariable Long id){
-        int decrementNumber = (-1);
-        studentService.changeScoreById(id, decrementNumber);
+        studentService.changeScoreById(id, -1);
         return "redirect:/";
     }
 }

@@ -18,15 +18,15 @@ public class StudentService {
     }
 
     public List<Student> findAll() {
-        return studentRepository.findAll();
+        return studentRepository.findAllFromData();
     }
 
-    public Optional<Student> findOneById(Long id) {
-        return studentRepository.findOneById(id);
+    public Optional<Student> findOneByIdFroData(Long id) {
+        return studentRepository.findOneByIdFroData(id);
     }
 
     public void save(Student student) {
-        studentRepository.save(student);
+        studentRepository.addStudent(student);
     }
 
     public void deleteById(Long id) {
@@ -34,6 +34,6 @@ public class StudentService {
     }
 
     public void changeScoreById(Long id, int changeNumber){
-        studentRepository.findOneById(id).get().changeScore(changeNumber);
+        studentRepository.findOneByIdFroData(id).get().changeScore(changeNumber);
     }
 }
