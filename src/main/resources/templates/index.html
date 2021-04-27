@@ -18,6 +18,7 @@
             <th>ID</th>
             <th>Название</th>
             <th>Цена</th>
+            <th>Категория</th>
             <th>Действия</th>
         </tr>
         </thead>
@@ -26,6 +27,8 @@
             <td th:text="${p.id}"/>
             <td th:text="${p.title}"/>
             <td th:text="${p.price}"/>
+            <td th:text="${p.category.title}"/>
+            <td>
             <td>
                 <a class="btn btn-danger" th:href="@{'/products/delete/' + ${p.id}}">Удалить запись</a>
             </td>

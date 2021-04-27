@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.geekbrains.spring.one.model.Category;
 import ru.geekbrains.spring.one.model.Product;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class ProductRepository {
     private List<Product> products;
     private static SessionFactory factory;
+    private Category category;
 
     @Autowired
     public ProductRepository(SessionFactory factory){
