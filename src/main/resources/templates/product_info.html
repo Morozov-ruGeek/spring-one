@@ -9,14 +9,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>Информация о студенте</h1>
-        <div th:if="${student != null}">
-            <h5 th:text="${'ID: ' + student.id}"/>
-            <h5 th:text="${'Имя: ' + student.name}"/>
-            <h5 th:text="${'Балл: ' + student.score}"/>
+        <h1>Информация о продуктах</h1>
+        <div th:if="${product != null}">
+            <h5 th:text="${'ID: ' + product.id}"/>
+            <h5 th:text="${'Имя: ' + product.title}"/>
+            <h5 th:text="${'Балл: ' + product.price}"/>
         </div>
-        <div th:if="${student == null}">
-            <h5>Такого студента не существует. Проверьте ID</h5>
+        <div th:if="${product == null}">
+            <h5>Такого продукта не существует. Проверьте ID</h5>
         </div>
         <a th:href="@{/}">На главную страницу</a>
     </div>

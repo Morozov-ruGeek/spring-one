@@ -14,8 +14,8 @@ import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 
-@Component
-public class AppConfig {
+@Configuration
+public class HibernateUtils {
 
     @Bean
     public SessionFactory factory(){
@@ -30,7 +30,6 @@ public class AppConfig {
         }
     }
 
-    @PostConstruct
     public void prepareDate(SessionFactory factory){
         Session session = null;
         try {

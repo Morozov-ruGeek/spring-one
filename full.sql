@@ -1,13 +1,20 @@
 BEGIN;
 
-DROP TABLE IF EXISTS students_info CASCADE;
-CREATE TABLE students_info (id bigserial PRIMARY KEY, name VARCHAR(255), score int);
-INSERT INTO students_info (name, score) VALUES
-('Alex', 80),
-('Bergen', 90),
-('Damian', 75),
-('Irvin', 70),
-('Karl', 90),
-('Jon', 100);
+DROP TABLE IF EXISTS products_category CASCADE;
+CREATE TABLE products_category (id bigserial PRIMARY KEY, title VARCHAR(255));
+INSERT INTO products_category (title) VALUES
+('Food'),
+('Household chemicals'),
+('Clothing');
+
+DROP TABLE IF EXISTS products_info CASCADE;
+CREATE TABLE products_info (id bigserial PRIMARY KEY, name VARCHAR(255), price int, category_id bigint REFERENCES products_category(id));
+INSERT INTO products_info (name, price, category_id) VALUES
+('Milk', 80, 1),
+('Bread', 90, 1),
+('Chees', 40, 3),
+('T-short', 75, 3),
+('Jeans', 70, 3),
+('Soap', 90, 2);
 
 COMMIT;

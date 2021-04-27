@@ -4,52 +4,57 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.geekbrains.spring.one.model.Student;
+import ru.geekbrains.spring.one.model.Product;
 
 import java.util.List;
 import java.util.Optional;
 
 @Component
-public class StudentRepository {
-    private List<Student> students;
+public class ProductRepository {
+    private List<Product> products;
     private static SessionFactory factory;
 
     @Autowired
-    public StudentRepository (SessionFactory factory){
+    public ProductRepository(SessionFactory factory){
         this.factory = factory;
     }
 
-    public List<Student> findAllFromData() {
+    public List<Product> findAllFromData() {
         try (Session session = factory.getCurrentSession()){
             session.beginTransaction();
-            students = session.createQuery("from Student ").getResultList();
+            products = session
+                    .createNamedQuery("withCategory", Product.class)
+                    .getResultList();
             session.getTransaction().commit();
-            return students;
+            return products;
         }
     }
 
-    public void addStudent(Student student) {
+    public void addProduct(Product product) {
         try (Session session = factory.getCurrentSession()){
             session.beginTransaction();
-            session.save(student);
+            session.save(product);
             session.getTransaction().commit();
         }
     }
 
-    public Optional<Student> findOneByIdFroData(Long id){
+    public Optional<Product> findOneByIdFroData(Long id){
         try (Session session = factory.getCurrentSession()){
             session.beginTransaction();
-            Student student = session.get(Student.class, id);
+            Product product = session
+                    .createNamedQuery("withCategory", Product.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
             session.getTransaction().commit();
-            return Optional.ofNullable(student);
+            return Optional.ofNullable(product);
         }
     }
 
     public void deleteById(Long id) {
         try (Session session = factory.getCurrentSession()) {
             session.beginTransaction();
-            Student students = session.get(Student.class, id);
-            session.delete(students);
+            Product products = session.get(Product.class, id);
+            session.delete(products);
             session.getTransaction().commit();
         }
     }
