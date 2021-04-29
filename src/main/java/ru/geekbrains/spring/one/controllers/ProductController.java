@@ -8,7 +8,6 @@ import ru.geekbrains.spring.one.model.Product;
 import ru.geekbrains.spring.one.services.ProductService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ProductController {
@@ -19,35 +18,70 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @GetMapping("/products/find")
+    public String showProductFinder(){
+        return "find_product_form";
+    }
+
+    @PostMapping("/products/find")
+    public String showProduct(@RequestParam Long id, Model model) {
+        productService.findOneById(id).ifPresent(p -> model.addAttribute("product", p));
+        return "product_info";
+    }
+
+    /*
+     После проверки ДЗ добавить пагинацию
+     */
     @GetMapping("/")
-    public String showAllProductsPage(Model model) {
+    public String showAllProducts(Model model) {
         List<Product> products = productService.findAll();
         model.addAttribute("products", products);
         return "index";
     }
 
-    @GetMapping("/products/finder")
-    public String showProductFinder(){
-        return "find_product_form";
-    }
-
-    @PostMapping("/products/finder")
-    public String showProductInfo(@RequestParam Long id, Model model) {
-        Optional<Product> product = productService.findOneByIdFroData(id);
-        if (product.isPresent()) {
-            model.addAttribute("product", product.get());
+    @PostMapping("/products/price-between")
+    public String filterProductsByPrice(@RequestParam(name = "minprice", required = false) Integer minPrice,
+                                        @RequestParam(name = "maxprice", required = false) Integer maxPrice,
+                                        Model model) {
+        List<Product> products = productService.findProductsByPrice(minPrice, maxPrice);
+        if (products.size() > 0) {
+            model.addAttribute("products", products);
         }
-        return "product_info";
+        return "index";
     }
 
-    @GetMapping("/products/create")
-    public String showCreator() {
+    @PostMapping("/products/title-like")
+    public String filterProductsByPrice(@RequestParam(name = "title", required = false) String title, Model model) {
+        List<Product> products = productService.findAllByTitle(title);
+        if (products.size() > 0) {
+            model.addAttribute("products", products);
+        }
+        return "index";
+    }
+
+    @PostMapping("/products/filter")
+    public String filterProductsByFilter(@RequestParam(name = "minprice", required = false) Integer minPrice,
+                                         @RequestParam(name = "maxprice", required = false) Integer maxPrice,
+                                         @RequestParam(name = "title", required = false) String title,
+                                         Model model) {
+        List<Product> products = productService.findProductsByFilter(minPrice, maxPrice, title);
+        if (products.size() > 0) {
+            model.addAttribute("products", products);
+        }
+        return "index";
+    }
+
+    @GetMapping("/products/add")
+    public String showAddProduct(Model model) {
+        model.addAttribute("message", "");
+        model.addAttribute("title", "");
+        model.addAttribute("price", "0");
         return "create_product_form";
     }
 
-    @PostMapping("/products/create")
-    public String createNewProduct(@ModelAttribute Product product) {
-        productService.save(product);
+    @PostMapping("/products/add")
+    public String addProduct(@RequestParam String title, @RequestParam int price, @RequestParam Long category_id) {
+        productService.saveWithCategory(title, price, category_id);
         return "redirect:/";
     }
 
@@ -57,15 +91,4 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @GetMapping("/products/score/increment/{id}")
-    public String incrementScoreById(@PathVariable Long id){
-        productService.changeScoreById(id, 1);
-        return "redirect:/";
-    }
-
-    @GetMapping("/products/decrement/{id}")
-    public String decrementScoreById(@PathVariable Long id){
-        productService.changeScoreById(id, -1);
-        return "redirect:/";
-    }
 }

@@ -8,8 +8,8 @@ INSERT INTO products_category (title) VALUES
 ('Clothing');
 
 DROP TABLE IF EXISTS products_info CASCADE;
-CREATE TABLE products_info (id bigserial PRIMARY KEY, name VARCHAR(255), price int, category_id bigint REFERENCES products_category(id));
-INSERT INTO products_info (name, price, category_id) VALUES
+CREATE TABLE products_info (id bigserial PRIMARY KEY, title VARCHAR(255), price int, category_id bigint, FOREIGN KEY (category_id) REFERENCES products_category(id));
+INSERT INTO products_info (title, price, category_id) VALUES
 ('Milk', 80, 1),
 ('Bread', 90, 1),
 ('Chees', 40, 3),

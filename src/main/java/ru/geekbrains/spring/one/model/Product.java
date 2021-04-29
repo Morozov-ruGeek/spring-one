@@ -6,14 +6,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "products_info")
+
 @NamedQueries({
-        @NamedQuery(name = "withCategory", query = "SELECT p FROM Product p JOIN FETCH p.category WHERE p.id = :id")
+        @NamedQuery(name = "deleteById", query = "delete from Product p where p.id = :id")
 })
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "products_info")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +28,32 @@ public class Product {
     private int price;
 
     @ManyToOne
-    @JoinTable(name = "category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
-    public void changeScore(int incrementOrDecrementNumber){
-        if (incrementOrDecrementNumber == +1 && this.price+1 <= 100){
-            this.price++;
-        }else if(incrementOrDecrementNumber == -1 && this.price-1 >= 0){
-            this.price--;
+    public Product(String title, int price, Category category) {
+        this.title = title;
+        this.price = price;
+        this.category = category;
+    }
+
+    public void incrementCost() {
+        if (price < Integer.MAX_VALUE) {
+            price++;
         }
+    }
+
+    public void decrementCost() {
+        if (price > 0) {
+            price--;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title=" + title + '\'' +
+                ", cost=" + price + "}";
     }
 }

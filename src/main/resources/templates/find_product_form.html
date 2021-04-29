@@ -11,14 +11,15 @@
 
 <body>
 <div class="container">
-    <h1>Добавить нового студента</h1>
-    <form method="POST" th:action="@{/products/finder}">
-        <div class="mb-3">
-            <label for="idField" class="form-label">ID</label>
-            <input type="number" class="form-control" id="idField" name="id">
-        </div>
-        <button type="submit" class="btn btn-primary">Найти</button>
+    <h1>Поиск продукта по id</h1>
+    <form method="POST" th:action="@{/products/find}">
+        <form class="d-flex" method="POST" th:action="@{/products/find}">
+            <input type="text" class="form-control me-2" placeholder="ID товара" aria-label="ID товара"
+                   aria-describedby="button-addon2" name="id">
+            <button class="btn btn-outline-primary" type="submit" id="button-addon2">Поиск</button>
+        </form>
     </form>
+    <br>
     <a th:href="@{/}">На главную страницу</a>
 </div>
 </body>
